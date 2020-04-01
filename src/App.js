@@ -7,6 +7,11 @@ import MainContainer from './Containers/MainContainer';
 import TextContainer from './Containers/TextContainer';
 import AdditionalContainer from './Containers/AdditionalContainer';
 
+import iconLogo from './image/cube.png' 
+import iconMain from './image/report.png'
+import iconText from './image/document.png'
+import iconAdd from './image/dashboard.png'
+
 class App extends Component {
 
   render() {
@@ -16,18 +21,34 @@ class App extends Component {
           <ContentContainer>
             <div className='leftContent'>
               <div className='upperInfo'>
-                <div className='upperInfoIcon'></div>
-                <div className='upperInfoText'>Park JW</div>
+                <div className='upperInfoIcon'>
+                  <img src={iconLogo} alt={iconLogo} height="30px"/>
+                </div>
+                <div className='upperInfoText'><span>Park</span> Jongwon</div>
               </div>
               <div className='lowerMenu'>
+                <Link className='defaultLink' to='/'>
+                  <div className='linkMenu'>
+                    <div className='lowerMenuIcon'>
+                      <img src={iconMain} alt={iconMain} height="20px"/>
+                    </div>
+                    <div className='lowerMenuText'>Dashboard</div>
+                  </div>
+                </Link>
                 <Link className='defaultLink' to='/text'>
                   <div className='linkMenu'>
-                    text
+                    <div className='lowerMenuIcon'>
+                      <img src={iconText} alt={iconText} height="20px"/>
+                    </div>
+                    <div className='lowerMenuText'>Text Mining</div>
                   </div>
                 </Link>
                 <Link className='defaultLink' to='/add'>
                   <div className='linkMenu'>
-                    add
+                    <div className='lowerMenuIcon'>
+                      <img src={iconAdd} alt={iconAdd} height="20px"/>
+                    </div>
+                    <div className='lowerMenuText'>Additional</div>
                   </div>
                 </Link>
               </div>
@@ -71,6 +92,11 @@ const ContentContainer = styled.div`
     border-bottom-left-radius: 20px;
     min-height: 700px;
     background: #333333;
+
+    .defaultLink {
+      color: black;
+      text-decoration:none;
+    }
   }
 
   .rightContent {
@@ -85,7 +111,6 @@ const ContentContainer = styled.div`
   .upperInfo {
     width: 100%;
     height: 120px;
-    border: 1px solid white;
 
     display: flex;
     justify-content: center;
@@ -96,13 +121,42 @@ const ContentContainer = styled.div`
     }
 
     .upperInfoText {
-      font-size: 20px;
+      margin-left: 10px;
+      font-size: 22px;
       text-align: center;
+      color: white;
+
+      span {
+        color: ${oc.grape[8]}
+      }
     }
   }
 
   .lowerMenu {
-    padding: 0 10px;
+    
+    .linkMenu {
+      width: 100%;
+      height: 50px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      color: white;
+
+      .lowerMenuIcon {
+        padding-top: 3px;
+      }
+
+      .lowerMenuText {
+        width: 100px;
+        margin-left: 10px;
+
+        &:hover {
+          color: ${oc.grape[7]}
+        }
+      }
+    }
   }
 `
 
