@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 import axios from 'axios';
+import postscribe from 'postscribe';
 
 class MainPage extends Component {  
   
@@ -17,16 +18,11 @@ class MainPage extends Component {
     const apiTarget = 'http://127.0.0.1:5000/process';
     axios.get(apiTarget)
     .then(response => {
-      console.log(response.data.split('<script>')[1].replace('</script>', ''))
-      // this.setState({
-      //   result: response.data
-      // })
-      const script = document.createElement("script");
-
-      script.src = response.data.split('<script>')[1].replace('</script>', '');
-      script.async = true;
-
-      document.body.appendChild(script);
+      // console.log(response.data.split('</div>')[1])
+      this.setState({
+        result: response.data
+      });
+      postscribe('#testDiv', response.data);
     })
     .catch(error => {
       console.log(error);
@@ -35,13 +31,11 @@ class MainPage extends Component {
 
 
   render(){
-    // const { result } = this.state;
-    // const temp = {__html: result};
+    const { result } = this.state;
+    const temp = {__html: result};
     return (
       <Container>
-        Main
-        {/* <div dangerouslySetInnerHTML={temp}></div> */}
-        <div id='THIS_IS_FIGID'></div>
+        <div className='testDiv' id='testDiv'/>
       </Container>
     )
   }
@@ -51,4 +45,8 @@ export default MainPage
 
 const Container = styled.div`
   width: 100%;
+
+  .testDiv {
+    border: 1px solid red;
+  }
 `

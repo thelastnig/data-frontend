@@ -6,7 +6,7 @@ class AdditionalPage extends Component {
   render(){
     return (
       <Container>
-        Additional
+        miscellaneous
       </Container>
     )
   }

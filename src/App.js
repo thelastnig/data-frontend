@@ -43,12 +43,12 @@ class App extends Component {
                     <div className='lowerMenuText'>Text Mining</div>
                   </div>
                 </Link>
-                <Link className='defaultLink' to='/add'>
+                <Link className='defaultLink' to='/etc'>
                   <div className='linkMenu'>
                     <div className='lowerMenuIcon'>
                       <img src={iconAdd} alt={iconAdd} height="20px"/>
                     </div>
-                    <div className='lowerMenuText'>Additional</div>
+                    <div className='lowerMenuText'>Miscellaneous</div>
                   </div>
                 </Link>
               </div>
@@ -58,7 +58,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={MainContainer} />
                   <Route path="/text" component={TextContainer} />
-                  <Route path="/add" component={AdditionalContainer} />
+                  <Route path="/etc" component={AdditionalContainer} />
                 </Switch>
               </div>
             </div>
@@ -78,7 +78,7 @@ const Container = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  width: 1300px;
+  width: 1500px;
   margin: 0 auto;
   border-radius: 20px;
 
