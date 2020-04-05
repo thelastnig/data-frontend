@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import axios from 'axios';
 import postscribe from 'postscribe';
+import mapScript from '../Script/map'
 
 class MainPage extends Component {  
   
@@ -11,7 +12,8 @@ class MainPage extends Component {
   }
 
   componentDidMount() {
-    this.getData();
+    // this.getData();
+    postscribe('#testDiv', mapScript);
   }
 
   getData = () => {
@@ -31,8 +33,8 @@ class MainPage extends Component {
 
 
   render(){
-    const { result } = this.state;
-    const temp = {__html: result};
+    // const { result } = this.state;
+    // const temp = {__html: result};
     return (
       <Container>
         <div className='testDiv' id='testDiv'/>
