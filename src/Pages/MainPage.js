@@ -4,6 +4,7 @@ import oc from 'open-color';
 import axios from 'axios';
 import postscribe from 'postscribe';
 import mapScript from '../Script/map'
+// import Map from './Map'
 
 class MainPage extends Component {  
   
@@ -12,7 +13,6 @@ class MainPage extends Component {
   }
 
   componentDidMount() {
-    // this.getData();
     postscribe('#testDiv', mapScript);
   }
 
@@ -20,7 +20,6 @@ class MainPage extends Component {
     const apiTarget = 'http://127.0.0.1:5000/process';
     axios.get(apiTarget)
     .then(response => {
-      // console.log(response.data.split('</div>')[1])
       this.setState({
         result: response.data
       });
@@ -38,6 +37,7 @@ class MainPage extends Component {
     return (
       <Container>
         <div className='testDiv' id='testDiv'/>
+        {/* <Map/> */}
       </Container>
     )
   }
