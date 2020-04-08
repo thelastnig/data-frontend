@@ -3,14 +3,11 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import axios from 'axios';
 import postscribe from 'postscribe';
-import mapScript from '../Script/map'
-// import Map from './Map'
+import mapScript from '../Script/map';
+import HeatMap from '../Graph/HeatMap'
+
 
 class MainPage extends Component {  
-  
-  state = {
-    result: null,
-  }
 
   componentDidMount() {
     postscribe('#testDiv', mapScript);
@@ -30,14 +27,11 @@ class MainPage extends Component {
     });
   }
 
-
   render(){
-    // const { result } = this.state;
-    // const temp = {__html: result};
     return (
       <Container>
         <div className='testDiv' id='testDiv'/>
-        {/* <Map/> */}
+        <HeatMap/>
       </Container>
     )
   }
@@ -49,6 +43,7 @@ const Container = styled.div`
   width: 100%;
 
   .testDiv {
+    width: 80%;
     border: 1px solid red;
   }
 `
