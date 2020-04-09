@@ -7,6 +7,28 @@ import timeSpan from '../data/timeSpan'
 class HeatMap extends Component {
   
   state = {
+    layout: {
+      autosize: false,
+      width: 600,
+      height: 600,
+      xaxis: {
+        weight: 600,
+        tickfont: {
+          size: 10,
+          color: '#343a40',
+          weight: 600,
+        },
+      },
+      yaxis: {
+        autotick: false,
+        tickfont: {
+          size: 10,
+          color: '#343a40',
+          weight: 600,
+          family: 'Noto Sans KR',
+        },
+      }
+    }
   }
 
   componentDidMount() {
@@ -26,28 +48,6 @@ class HeatMap extends Component {
         ygap: 1,
         xgap: 1
       },
-      layout: {
-        autosize: false,
-        width: 600,
-        height: 600,
-        xaxis: {
-          weight: 600,
-          tickfont: {
-            size: 10,
-            color: '#343a40',
-            weight: 600,
-          },
-        },
-        yaxis: {
-          autotick: false,
-          tickfont: {
-            size: 10,
-            color: '#343a40',
-            weight: 600,
-            family: 'Noto Sans KR',
-          },
-        }
-      }
     })
   }
 

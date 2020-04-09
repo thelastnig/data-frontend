@@ -4,7 +4,9 @@ import oc from 'open-color';
 import axios from 'axios';
 import postscribe from 'postscribe';
 import mapScript from '../Script/map';
-import HeatMap from '../Graph/HeatMap'
+import HeatMap from '../Graph/HeatMap';
+import LinearMap from '../Graph/Linear';
+import Indicator from '../Graph/Indicator';
 
 
 class MainPage extends Component {  
@@ -32,6 +34,8 @@ class MainPage extends Component {
       <Container>
         <div className='testDiv' id='testDiv'/>
         <HeatMap/>
+        <LinearMap/>
+        <Indicator />
       </Container>
     )
   }
