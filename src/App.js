@@ -87,7 +87,7 @@ const ContentContainer = styled.div`
   align-items: flex-start;
 
   .leftContent {
-    width: 17%;
+    width: 255px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     min-height: 700px;
@@ -100,12 +100,11 @@ const ContentContainer = styled.div`
   }
 
   .rightContent {
-    width: 83%;
+    width: 1245px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     min-height: 700px;
     background: #1E1E1E;
-
   }
 
   .upperInfo {

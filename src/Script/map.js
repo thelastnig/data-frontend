@@ -93,9 +93,6 @@ const mapScript = `
             .attr("dy", ".35em")
             .attr("class", "municipality-label_num")
             .text(d.properties.PRICE);
-
-
-
           })
           .on("mouseout",  function(d) {
             d3.select(this)

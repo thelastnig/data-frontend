@@ -1,14 +1,23 @@
 import React, {Component} from 'react';
 import * as d3 from "d3";
 import styled from "styled-components";
+import * as topojson from 'topojson-client';
 
 class MapChart extends Component {
   componentDidMount() {
+    
+    console.log(this.props.selectedArea)
     this.drawChart();
   }
 
+  select = (area) => {
+    const { selectArea } = this.props;
+    selectArea(area);
+  }
+
   drawChart = () => {    
-    const width = 800;
+    
+    const width = 700;
     const height = 600;
 
     const svg = d3.select("#chart").append("svg")
@@ -16,36 +25,57 @@ class MapChart extends Component {
       .attr("height", height);
     const map = svg.append("g").attr("id", "map");
 
-    const projection = d3.geo.mercator()
+    const projection = d3.geoMercator()
     .center([126.9895, 37.5651])
-    .scale(100000)
+    .scale(90000)
     .translate([width/2, height/2]);
    
-    const path = d3.geo.path().projection(projection);
+    const path = d3.geoPath(projection);      
 
-    const sequentialScale = d3.scaleSequential()
-	  .domain([0, 100])
-    .interpolator(d3.interpolateRainbow);
+    var color = d3.scaleSequential()
+	  .domain([400000, 1800000])
+    .interpolator(d3.interpolatePurples);
     
-    d3.json("../data/seoul_municipalities_topo_simple.json", function(error, data) {
+    d3.json("seoul_municipalities_topo_simple.json").then(data => {
       const features = topojson.feature(data, data.objects.seoul_municipalities_geo).features;
       
-    
       map.selectAll("path")
           .data(features)
         .enter().append("path")
           .attr("class", function(d) { console.log(); return "municipality c" + d.properties.SIG_CD })
           .attr("d", path)
-          .attr("fill", function(d) { return "white" });
-          
-    
-      map.selectAll("text")
-          .data(features)
-        .enter().append("text")
-          .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-          .attr("dy", ".35em")
-          .attr("class", "municipality-label")
-          .text(function(d) { return d.properties.SIG_KOR_NM; });
+          .attr("fill", function(d) { return color(d.properties.PRICE) })
+          .on("mouseover", function(d) {
+
+            d3.select(this)
+            // .attr("transform", "translate(5, 0)")
+            .raise()
+
+            map.append("text")
+            .attr("id", d.properties.SIG_CD)
+            .attr("transform", "translate(" + path.centroid(d) + ")")
+            .attr("dy", ".35em")
+            .attr("class", "municipality-label")
+            .text(d.properties.SIG_KOR_NM);
+
+            map.append("text")
+            .attr("id", d.properties.SIG_CD)
+            .attr("transform", "translate(" + path.centroid(d)[0] + ", " + (path.centroid(d)[1] + 15) + ")")
+            .attr("dy", ".35em")
+            .attr("class", "municipality-label_num")
+            .text(d.properties.PRICE);
+          })
+          .on("mouseout",  function(d) {
+            d3.select(this)
+            .attr("d", path)
+
+            d3.select(".municipality-label").remove();
+            d3.select(".municipality-label_num").remove();
+          })
+          .on("click", d => {
+            const selected = d.properties.SIG_KOR_NM;
+            this.select(selected);
+          }) 
     });
   }
 
@@ -59,35 +89,22 @@ class MapChart extends Component {
 export default MapChart;
 
 const Map = styled.div`
-  svg circle {
-    fill: orange;
-    opacity: .5;
-    stroke: white;
-  }
-  svg circle:hover {
-    fill: red;
-    stroke: #333;
-  }
-  svg text {
-    pointer-events: none;
-  }
   svg .municipality {
-    stroke: #fff;
+    stroke: #868e96;
+    cursor: pointer;
   }
   svg .municipality-label {
-    fill: #bbb;
+    fill: black;
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 600;
     text-anchor: middle;
+    font-family: 'Work Sans', 'Helvetica Neue', sans-serif;
   }
-  svg #map text {
-    color: #333;
-    font-size: 10px;
+  svg .municipality-label_num {
+    fill: black;
+    font-size: 12px;
+    font-weight: 600;
     text-anchor: middle;
-  }
-  svg #places text {
-    color: #777;
-    font: 10px sans-serif;
-    text-anchor: start;
+    font-family: 'Work Sans', 'Helvetica Neue', sans-serif;
   }
 `

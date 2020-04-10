@@ -4,10 +4,22 @@ import oc from 'open-color';
 import MainPage from '../Pages/MainPage'
 
 class MainContainer extends Component {
+  state = {
+    selectedArea: "종로구"
+  }
+
+  selectArea = (area) => {
+    this.setState({
+      selectedArea: area
+    })
+  }
+
   render(){
+  const { selectedArea } = this.state;
+  const selectArea = this.selectArea
     return (
       <Container>
-        <MainPage/>
+        <MainPage selectedArea={selectedArea} selectArea={selectArea}/>
       </Container>
     )
   }
