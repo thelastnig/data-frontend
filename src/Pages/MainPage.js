@@ -9,7 +9,9 @@ import MapChart from './Map'
 import HeatMap from '../Graph/HeatMap';
 import LinearMap from '../Graph/Linear';
 import Indicator from '../Graph/Indicator';
-import BarChart from '../Graph/BarChart'
+import BarChart from '../Graph/BarChart';
+import Cluster from '../Graph/Cluster';
+
 import { Select, MenuItem  } from '@material-ui/core';
 import timeSpan from '../data/timeSpan'
 
@@ -65,7 +67,7 @@ class MainPage extends Component {
             <HeatMap/>
           </div>
           <div className='middleRight'>
-            
+            <Cluster/>
           </div>
         </div>
         <div className="middle2">
