@@ -9,12 +9,18 @@ import MapChart from './Map'
 import HeatMap from '../Graph/HeatMap';
 import LinearMap from '../Graph/Linear';
 import Indicator from '../Graph/Indicator';
+import BarChart from '../Graph/BarChart'
+import { Select, MenuItem  } from '@material-ui/core';
+import timeSpan from '../data/timeSpan'
 
 
-class MainPage extends Component {  
+class MainPage extends Component {
+  
+  state = {
+    timeSpanReverse: []
+  }
 
   componentDidMount() {
-  //   postscribe('#testDiv', mapScript);
   }
 
   getData = () => {
@@ -32,6 +38,12 @@ class MainPage extends Component {
   }
 
   render(){
+    const { selectedTime } = this.props;
+    const times = timeSpan.date.map((value, i) => {
+      return (
+        <MenuItem value={value} key={i}>{value}</MenuItem>
+      )
+    })
     return (
       <Container>
         {/* <div className='testDiv' id='testDiv'/> */}
@@ -48,7 +60,24 @@ class MainPage extends Component {
             </div>
           </div>
         </div>
-        <HeatMap/>
+        <div className='middle'>
+          <div className='middleLeft'>
+            <HeatMap/>
+          </div>
+          <div className='middleRight'>
+            
+          </div>
+        </div>
+        <div className="middle2">
+          
+          <div className="upperInforArea">
+            <Select value={selectedTime} onChange={(e)=>this.props.selectTime(e.target.value)}>
+              {times}
+            </Select>
+
+          </div>
+          <BarChart {...this.props}/>
+        </div>
       </Container>
     )
   }
@@ -97,7 +126,41 @@ const Container = styled.div`
         background: #333333;
         text-align: center;
       }
+    }
+  }
+
+  .middle {
+    width: 1185px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    text-align: center;
+
+    .middleLeft {
+      width: 577.5px;
+      height: 590px;
+      padding-top: 10px;
+      margin-right: 30px;
+      border-radius: 10px;
+      background: #333333;
+    }
+    .middleRight {
+      width: 577.5px;
+      height: 590px;
+      padding-top: 10px;
+      border-radius: 10px;
+      background: #333333;
 
     }
+  }
+
+  .middle2 {
+    width: 1185px;
+    height: 590px;
+    margin-top: 30px;
+    padding-top: 10px;
+    border-radius: 10px;
+    background: #333333;
   }
 `

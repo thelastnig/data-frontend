@@ -2,20 +2,29 @@ import React, {Component} from 'react';
 import styled from "styled-components";
 import Plot from 'react-plotly.js';
 import data from '../data/realEstate';
-import timeSpan from '../data/timeSpan'
+import timeSpan from '../data/timeSpan';
 
 class HeatMap extends Component {
   
   state = {
     layout: {
+      
       autosize: false,
-      width: 600,
-      height: 600,
+      width: 570,
+      height: 570,
+      margin: {
+        l: 70,
+        r: 50,
+        b: 50,
+        t: 70,
+      },
+      paper_bgcolor: '#333333',
+      plot_bgcolor: '#333333',
       xaxis: {
         weight: 600,
         tickfont: {
-          size: 10,
-          color: '#343a40',
+          size: 11,
+          color: '#dee2e6',
           weight: 600,
         },
       },
@@ -23,11 +32,11 @@ class HeatMap extends Component {
         autotick: false,
         tickfont: {
           size: 10,
-          color: '#343a40',
-          weight: 600,
+          weight: 400,
+          color: '#dee2e6',
           family: 'Noto Sans KR',
         },
-      }
+      },
     }
   }
 
@@ -42,7 +51,7 @@ class HeatMap extends Component {
         y: Object.keys(data),
         z: zArray,
         type: 'heatmap',
-        hoverongaps: true,
+        hoverongaps: false,
         colorscale: 'Viridis',
         reversescale: true,
         ygap: 1,

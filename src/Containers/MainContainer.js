@@ -5,7 +5,8 @@ import MainPage from '../Pages/MainPage'
 
 class MainContainer extends Component {
   state = {
-    selectedArea: "종로구"
+    selectedArea: "종로구",
+    selectedTime: '2020-03',
   }
 
   selectArea = (area) => {
@@ -14,12 +15,23 @@ class MainContainer extends Component {
     })
   }
 
+  selectTime = (time) => {
+    this.setState({
+      selectedTime: time
+    })
+  }
+
   render(){
-  const { selectedArea } = this.state;
+  const { selectedArea, selectedTime } = this.state;
   const selectArea = this.selectArea
+  const selectTime = this.selectTime
     return (
       <Container>
-        <MainPage selectedArea={selectedArea} selectArea={selectArea}/>
+        <MainPage 
+          selectedArea={selectedArea} 
+          selectArea={selectArea} 
+          selectedTime={selectedTime} 
+          selectTime={selectTime} />
       </Container>
     )
   }
