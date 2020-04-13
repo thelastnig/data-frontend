@@ -4,7 +4,6 @@ import Plot from 'react-plotly.js';
 import data from '../data/realEstate';
 import dataCharter from '../data/realEstateCharter';
 import timeSpan from '../data/timeSpan'
-
 class BarChart extends Component {
   
   state = {
@@ -75,8 +74,12 @@ class BarChart extends Component {
       data: {
         x: keyNames,
         y: valueArray,
-        type: 'bar',
         name: "매매가",
+        // fill: 'tozeroy',
+        // fillcolor: '#5f3dc4',
+        // type: 'scatter',
+        // mode: 'none',
+        type: 'bar',
         marker: {
           color: '#5f3dc4',
         }
@@ -84,8 +87,12 @@ class BarChart extends Component {
       dataC: {
         x: keyNames,
         y: valueCArray,
-        type: 'bar',
         name: "전세가",
+        // fill: 'tozeroy',
+        // fillcolor: '#b197fc',
+        // type: 'scatter',
+        // mode: 'none'
+        type: 'bar',
         marker: {
           color: '#868e96',
         }

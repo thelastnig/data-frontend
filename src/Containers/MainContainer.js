@@ -7,6 +7,7 @@ class MainContainer extends Component {
   state = {
     selectedArea: "종로구",
     selectedTime: '2020-03',
+    selectedType: '매매',
   }
 
   selectArea = (area) => {
@@ -21,17 +22,27 @@ class MainContainer extends Component {
     })
   }
 
+  selectType = (type) => {
+    console.log(type)
+    this.setState({
+      selectedType: type
+    })
+  }
+
   render(){
-  const { selectedArea, selectedTime } = this.state;
+  const { selectedArea, selectedTime, selectedType } = this.state;
   const selectArea = this.selectArea
   const selectTime = this.selectTime
+  const selectType = this.selectType
     return (
       <Container>
         <MainPage 
           selectedArea={selectedArea} 
           selectArea={selectArea} 
           selectedTime={selectedTime} 
-          selectTime={selectTime} />
+          selectTime={selectTime} 
+          selectedType={selectedType} 
+          selectType={selectType}  />
       </Container>
     )
   }
