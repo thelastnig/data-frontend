@@ -19,6 +19,7 @@ import dataC from '../data/realEstateCharter';
 import dataM from '../data/realEstateMonth';
 import timeSpan from '../data/timeSpan';
 
+import iconTest from '../image/home.png';
 
 class MainPage extends Component {
   
@@ -116,7 +117,51 @@ class MainPage extends Component {
     })
     return (
       <Container isBSelected={isBSelected} isCSelected={isCSelected} isMSelected={isMSelected} >
-        {/* <div className='testDiv' id='testDiv'/> */}
+        <div className='upperInfoText'>
+          서울 지역 아파트 가격 동향
+        </div>
+        <div className='upperInfoItemContainer'>
+          <div className='upperInfoItem'>
+            <div className='upperInfoUpper'>
+              <div className='upperInfoUpperIcon'>
+                <img src={iconTest} alt={iconTest} height="20px"/>
+              </div>
+              <div className='upperInfoUpperText'>매매가 최고 지역 <span>('20.3)</span></div>
+            </div>
+            <div className='upperInfoMiddle'>서초구</div>
+            <div className='upperInfoLower'>1,770,507</div>
+          </div>
+          <div className='upperInfoItem second'>
+            <div className='upperInfoUpper'>
+              <div className='upperInfoUpperIcon second'>
+                <img src={iconTest} alt={iconTest} height="20px"/>
+              </div>
+              <div className='upperInfoUpperText second'>전세가 최고 지역 <span>('20.3)</span></div>
+            </div>
+            <div className='upperInfoMiddle'>서초구</div>
+            <div className='upperInfoLower'>864,651</div>
+          </div>
+          <div className='upperInfoItem third'>
+            <div className='upperInfoUpper'>
+              <div className='upperInfoUpperIcon third'>
+                <img src={iconTest} alt={iconTest} height="20px"/>
+              </div>
+              <div className='upperInfoUpperText third'>매매가 최고 상승 지역 <span>('19.4~'20.3)</span></div>
+            </div>
+            <div className='upperInfoMiddle'>종로구</div>
+            <div className='upperInfoLower'>44.3%</div>
+          </div>
+          <div className='upperInfoItem forth'>
+            <div className='upperInfoUpper'>
+              <div className='upperInfoUpperIcon forth'>
+                <img src={iconTest} alt={iconTest} height="20px"/>
+              </div>
+              <div className='upperInfoUpperText forth'>전세가 최고 상승 지역 <span>('19.4~'20.3)</span></div>
+            </div>
+            <div className='upperInfoMiddle'>종로구</div>
+            <div className='upperInfoLower'>45%</div>
+          </div>
+        </div>
         <div className='upper'>
           <div className='upperLeft'>
             <MapChart {...this.props}/>
@@ -174,9 +219,83 @@ const Container = styled.div`
   width: 100%;
   padding: 30px;
 
-  .testDiv {
-    width: 80%;
-    border: 1px solid red;
+  .upperInfoText {
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: white;
+    font-family: 'Noto Sans KR';
+
+    margin-bottom: 30px;
+    margin-top: 15px;
+  }
+
+  .upperInfoItemContainer {
+    width: 1185px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+
+    .upperInfoItem {
+      width: 253.75px;
+      padding: 10px;
+      height: 90px;;
+      border-radius: 10px;
+      background-color: ${oc.grape[9]};
+
+      &.second {
+        background-color: ${oc.pink[9]}
+      }
+      &.third {
+        background-color: ${oc.violet[9]}
+      }
+      &.forth {
+        background-color: ${oc.blue[9]}
+      }
+
+      .upperInfoUpper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 5px;
+
+        .upperInfoUpperIcon {
+          margin-right: 7px;
+          margin-left: 5px;
+          font-size: 18px;
+          color: white;
+        }
+        .upperInfoUpperText {
+          font-size: 14px;
+          letter-spacing: 1px;
+          color: white;
+          font-family: 'Noto Sans KR';
+          color: white;
+
+          span {
+            font-size: 8px;
+          }
+        }
+
+      }
+      .upperInfoMiddle {
+        font-size: 22px;
+        letter-spacing: 2px;
+        color: white;
+        font-family: 'Noto Sans KR';
+        text-align: center;
+        margin-bottom: 5px;
+
+      }
+      .upperInfoLower {
+        font-size: 16px;
+        letter-spacing: 1px;
+        color: white;
+        text-align: center;
+
+      }
+    }
   }
 
   .upper {
