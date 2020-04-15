@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import styled from "styled-components";
 import Plot from 'react-plotly.js';
 import data from '../data/realEstate';
 import dataCharter from '../data/realEstateCharter';
 import timeSpan from '../data/timeSpan'
 import { thresholdScott } from 'd3';
+import oc from 'open-color';
 
 class LinearMap extends Component {
   
@@ -15,8 +16,8 @@ class LinearMap extends Component {
       width: 420,
       height: 280,
       margin: {
-        l: 55,
-        r: 20,
+        l: 70,
+        r: 10,
         b: 40,
         t: 30,
         pad: 4,
@@ -26,7 +27,8 @@ class LinearMap extends Component {
       },
       yaxis: {
         autorange: true,
-        color: '#dee2e6'
+        color: '#dee2e6', 
+        tickformat: ',d',
         
       }, 
       paper_bgcolor: '#333333',
@@ -122,11 +124,16 @@ class LinearMap extends Component {
     const { data, dataC, layout } = this.state;
     const { selectedArea } = this.props;
     return(
-      <Plot
-        data={[data, dataC]} 
-        layout={layout}
-        graphDiv="graph"
-      />
+      <Container>
+        <div className='infoText'>
+          {selectedArea} 매매/전세가 추이 <span>[단위: 천원]</span>
+        </div>
+        <Plot
+          data={[data, dataC]} 
+          layout={layout}
+          graphDiv="graph"
+        />
+      </Container>
     )
   }
 }
@@ -134,4 +141,18 @@ class LinearMap extends Component {
 export default LinearMap;
 
 const Container = styled.div`
+
+  .infoText {
+    width: 100%;
+    text-align:left;
+    padding-left: 15px;
+    padding-top: 15px;
+    font-size: 17px;
+    color: ${oc.gray[2]};
+    font-family: 'Noto Sans KR';
+
+    span {
+      font-size: 12px;
+    }
+  }
 `

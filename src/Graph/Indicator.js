@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import styled from "styled-components";
 import Plot from 'react-plotly.js';
 import data from '../data/realEstate';
-import timeSpan from '../data/timeSpan'
+import timeSpan from '../data/timeSpan';
+import oc from 'open-color';
 
 class Indicator extends Component {
   
@@ -34,10 +35,6 @@ class Indicator extends Component {
         {
           domain: { x: [0, 1], y: [0, 1] },
           value: rate,
-          title: { 
-            text: "매매가 상승률 (%)",
-            font: { size: 16 }
-          },
           type: "indicator",
           mode: "gauge+number",
           gauge: {
@@ -62,10 +59,6 @@ class Indicator extends Component {
           {
             domain: { x: [0, 1], y: [0, 1] },
             value: rate,
-            title: { 
-              text: "매매가 상승률 (%)",
-              font: { size: 16 }
-            },
             type: "indicator",
             mode: "gauge+number",
             gauge: {
@@ -83,13 +76,18 @@ class Indicator extends Component {
   }
 
   render() {
-    const { data, layout } = this.state;
+    const { data, layout, selectedArea } = this.state;
     return(
-      <Plot
-        data={data} 
-        layout={layout}
-        graphDiv="graph"
-      />
+      <Container>
+        <div className='infoText'>
+          {selectedArea} 매매/전세가 상승률 <span>[단위: %]</span>
+        </div>
+        <Plot
+          data={data} 
+          layout={layout}
+          graphDiv="graph"
+        />
+      </Container>
     )
   }
 }
@@ -97,4 +95,18 @@ class Indicator extends Component {
 export default Indicator;
 
 const Container = styled.div`
+
+  .infoText {
+    width: 100%;
+    text-align:left;
+    padding-left: 15px;
+    padding-top: 15px;
+    font-size: 17px;
+    color: ${oc.gray[2]};
+    font-family: 'Noto Sans KR';
+
+    span {
+      font-size: 12px;
+    }
+  }
 `

@@ -8,7 +8,6 @@ class HeatMap extends Component {
   
   state = {
     layout: {
-      
       autosize: false,
       width: 570,
       height: 570,

@@ -11,13 +11,12 @@ class BarChart extends Component {
     layout: {
       autosize: false,
       width: 1170,
-      height: 580,
+      height: 520,
       margin: {
-        l: 65,
+        l: 80,
         r: 30,
-        b: 50,
-        t: 50,
-        pad: 4,
+        b: 40,
+        t: 20,
       },
       xaxis: {
         tickfont: {
@@ -27,12 +26,26 @@ class BarChart extends Component {
         },
       },
       yaxis: {
-        autorange: true,
+        autorange: false,
         color: '#868e96',
         tickfont: {
           color: '#dee2e6'
         },
+        tickformat: ',d',
+        range: [0, 1800000],
       }, 
+      yaxis2: {
+        autorange: false,
+        color: '#868e96',
+        tickfont: {
+          color: '#dee2e6'
+        },
+        overlaying: 'y',
+        side: 'right',
+        range: [0, 0.9],
+        dtick: 0.1,
+        tickformat: '%',
+      },
       paper_bgcolor: '#333333',
       plot_bgcolor: '#333333',
       showlegend: true,
@@ -70,15 +83,17 @@ class BarChart extends Component {
       valueCArray.push(value[index]);
     })
 
+    let valueRatio = []
+    valueArray.map((value, i) => {
+      const ratio = (valueCArray[i] / value).toFixed(3); 
+      valueRatio.push(parseFloat(ratio));
+    })
+
     this.setState({
       data: {
         x: keyNames,
         y: valueArray,
         name: "매매가",
-        // fill: 'tozeroy',
-        // fillcolor: '#5f3dc4',
-        // type: 'scatter',
-        // mode: 'none',
         type: 'bar',
         marker: {
           color: '#5f3dc4',
@@ -88,14 +103,25 @@ class BarChart extends Component {
         x: keyNames,
         y: valueCArray,
         name: "전세가",
-        // fill: 'tozeroy',
-        // fillcolor: '#b197fc',
-        // type: 'scatter',
-        // mode: 'none'
         type: 'bar',
         marker: {
-          color: '#868e96',
+          color: '#adb5bd',
         }
+      },
+      dataR: {
+        x: keyNames,
+        y: valueRatio,
+        name: "매매 대비 전세가율",
+        type: 'scatter',
+        line: {
+          color: '#c2255c',
+          width: 3
+        },
+        marker: {
+          size: 8
+        },
+        yaxis: 'y2',
+        mode: 'lines+markers',
       },
     })
   }
@@ -110,17 +136,23 @@ class BarChart extends Component {
         if (value === nextProps.selectedTime) {
           index = i
         }
-      })
+      });
   
       let valueArray = []
       Object.values(data).map(value => {
         valueArray.push(value[index]);
-      })
+      });
   
       let valueCArray = []
       Object.values(dataCharter).map(value => {
         valueCArray.push(value[index]);
-      })
+      });
+
+      let valueRatio = []
+      valueArray.map((value, i) => {
+        const ratio = (valueCArray[i] / value).toFixed(3); 
+        valueRatio.push(parseFloat(ratio));
+      });
 
       return {
         selectedTime: nextProps.selectedTime,
@@ -139,20 +171,32 @@ class BarChart extends Component {
           type: 'bar',
           name: "전세가",
           marker: {
-            color: '#868e96',
+            color: '#adb5bd',
           }
-        }
+        },
+        dataR: {
+          x: keyNames,
+          y: valueRatio,
+          name: "매매 대비 전세가율",
+          type: 'scatter',
+          line: {
+            color: '#c2255c',
+            width: 3
+          },
+          yaxis: 'y2',
+          mode: 'lines+markers',
+        },
       }
     }
     return null
   }
 
   render() {
-    const { data, dataC, layout } = this.state;
+    const { data, dataC, dataR, layout } = this.state;
     const { selectedArea } = this.props;
     return(
       <Plot
-        data={[data, dataC]} 
+        data={[data, dataC, dataR]} 
         layout={layout}
         graphDiv="graph"
       />

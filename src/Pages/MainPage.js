@@ -66,7 +66,7 @@ class MainPage extends Component {
 
     const times = timeSpan.date.map((value, i) => {
       return (
-        <MenuItem value={value} key={i}>{value}</MenuItem>
+        <MenuItem className='menuItem' value={value} key={i}>{value}</MenuItem>
       )
     })
 
@@ -164,6 +164,9 @@ class MainPage extends Component {
         </div>
         <div className='upper'>
           <div className='upperLeft'>
+            <div className='commonText'>
+              아파트 매매가 <span>('20.3) [단위: 천원]</span> 
+            </div>
             <MapChart {...this.props}/>
           </div>
           <div className='upperRight'>
@@ -177,27 +180,38 @@ class MainPage extends Component {
         </div>
         <div className='middle'>
           <div className='middleLeft'>
+            <div className='commonText Float'>
+              아파트 매매가 추이 <span>[단위: 천원]</span>
+            </div>
             <HeatMap/>
           </div>
           <div className='middleRight'>
+            <div className='commonText Float'>
+              아파트 매매/전세/월세 상승률 <span>[단위: %]</span>
+            </div>
             <Cluster/>
           </div>
         </div>
         <div className="middle2">
           
           <div className="upperInforArea">
-            <Select value={selectedTime} onChange={(e)=>this.props.selectTime(e.target.value)}>
+            <div className='infoText'>
+              구별 아파트 매매/전세가 <span>[단위: 천원]</span>
+            </div>
+            <Select  className='selectItem' value={selectedTime} onChange={(e)=>this.props.selectTime(e.target.value)}>
               {times}
             </Select>
-
           </div>
           <BarChart {...this.props}/>
         </div>
         <div className='tableContainer'>
-          <div className='typeContainer'>
-            <div className='type b' onClick={()=>this.props.selectType('매매')}>매매</div>
-            <div className='type c' onClick={()=>this.props.selectType('전세')}>전세</div>
-            <div className='type m' onClick={()=>this.props.selectType('월세')}>월세</div>
+          <div className='infoContainer'>
+            <div className='infoText'>아파트 가격 도표 <span>[단위: 천원]</span></div>
+            <div className='typeContainer'>
+              <div className='type b' onClick={()=>this.props.selectType('매매')}>매매</div>
+              <div className='type c' onClick={()=>this.props.selectType('전세')}>전세</div>
+              <div className='type m' onClick={()=>this.props.selectType('월세')}>월세</div>
+            </div>
           </div>
           <div className='table'>
             <div className='timeContainer'>
@@ -219,13 +233,37 @@ const Container = styled.div`
   width: 100%;
   padding: 30px;
 
+  .commonText {
+    height: 20px;
+    font-size: 17px;
+    color: ${oc.gray[2]};
+    font-family: 'Noto Sans KR';
+
+    margin-top: 15px;
+    margin-left: 15px;
+
+    &.Float {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+
+      margin-top: 0;
+      margin-left: 0;
+      z-index: 99;
+    }
+
+    span {
+      font-size: 12px;
+    }
+  }
+
   .upperInfoText {
     font-size: 22px;
     letter-spacing: 2px;
     color: white;
     font-family: 'Noto Sans KR';
 
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     margin-top: 15px;
   }
 
@@ -293,7 +331,6 @@ const Container = styled.div`
         letter-spacing: 1px;
         color: white;
         text-align: center;
-
       }
     }
   }
@@ -306,7 +343,7 @@ const Container = styled.div`
 
     .upperLeft {
       width: 720px;
-      height: 600px;
+      height: 670px;
       margin-right: 30px;
       border-radius: 10px;
       background: #333333;
@@ -316,7 +353,7 @@ const Container = styled.div`
 
       .upperRightUp {
         width: 100%;
-        height: 285px;
+        height: 320px;
         margin-bottom: 30px;
         border-radius: 10px;
         background: #333333;
@@ -325,7 +362,7 @@ const Container = styled.div`
       .upperRightDown {
         width: 100%;
         padding-top: 5px;
-        height: 285px;
+        height: 320px;
         border-radius: 10px;
         background: #333333;
         text-align: center;
@@ -348,6 +385,7 @@ const Container = styled.div`
       margin-right: 30px;
       border-radius: 10px;
       background: #333333;
+      position: relative;
     }
     .middleRight {
       width: 577.5px;
@@ -355,6 +393,7 @@ const Container = styled.div`
       padding-top: 10px;
       border-radius: 10px;
       background: #333333;
+      position: relative;
     }
   }
 
@@ -362,27 +401,75 @@ const Container = styled.div`
     width: 1185px;
     height: 590px;
     margin-top: 30px;
-    padding-top: 10px;
     border-radius: 10px;
     background: #333333;
+
+    .upperInforArea {
+      width: 1125px;
+      padding-top: 10px;
+      margin-left: 15px;
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .infoText {
+        margin-right: 20px;
+        height: 20px;
+        font-size: 17px;
+        color: ${oc.gray[2]};
+        font-family: 'Noto Sans KR';
+
+        span {
+          font-size: 12px;
+        }
+      }
+      .selectItem {
+        padding-top: 10px;
+      }
+      .menuItem {
+        color: ${oc.gray[2]};
+      }
+    }
   }
 
   .tableContainer {
     width: 1185px;
-    padding-top: 30px;
     padding-bottom: 30px;
     margin-top: 30px;
     border-radius: 10px;
     background: #333333;
 
+    .infoContainer {
+      width: 1140px;
+      padding-top: 15px;
+      margin-left: 15px;
+      margin-bottom: 20px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .infoText {
+      margin-right: 30px;
+      height: 20px;
+      font-size: 17px;
+      color: ${oc.gray[2]};
+      font-family: 'Noto Sans KR';
+
+      span {
+        font-size: 12px;
+      }
+    }
+
     .typeContainer {
       width: 240px;
-      margin-left: 30px;
-      margin-bottom: 20px;
       text-align: center;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding-top: 5px;
 
       .type {
         width: 80px;

@@ -14,10 +14,10 @@ class Cluster extends Component {
       height: 560,
       width: 560,
       margin: {
-        l: 50,
-        r: 50,
-        b: 70,
-        t: 30,
+        l: 40,
+        r: 40,
+        b: 40,
+        t: 50,
       },
       paper_bgcolor: '#333333',
       scene: {
@@ -45,31 +45,31 @@ class Cluster extends Component {
               }
           },
           xaxis: {
-              type: 'linear',
-              zeroline: false,
-              gridcolor: '#74b816',
-              gridwidth: 1.5,
-              tickfont: {
-                color: '#dee2e6'
-              },
+            type: 'linear',
+            zeroline: false,
+            gridcolor: '#74b816',
+            gridwidth: 1.5,
+            tickfont: {
+              color: '#dee2e6'
+            },
           },
           yaxis: {
-              type: 'linear',
-              zeroline: false,
-              gridcolor: '#74b816',
-              gridwidth: 1.5,
-              tickfont: {
-                color: '#dee2e6'
-              },
+            type: 'linear',
+            zeroline: false,
+            gridcolor: '#74b816',
+            gridwidth: 1.5,
+            tickfont: {
+              color: '#dee2e6'
+            },
           },
           zaxis: {
-              type: 'linear',
-              zeroline: false,
-              gridcolor: '#74b816',
-              gridwidth: 1.5,
-              tickfont: {
-                color: '#dee2e6'
-              },
+            type: 'linear',
+            zeroline: false,
+            gridcolor: '#74b816',
+            gridwidth: 1.5,
+            tickfont: {
+              color: '#dee2e6'
+            },
           }
       },
     }
