@@ -17,7 +17,7 @@ class MapChart extends Component {
 
   drawChart = () => {    
     
-    const width = 700;
+    const width = 680;
     const height = 600;
 
     const svg = d3.select("#chart").append("svg")
@@ -27,14 +27,14 @@ class MapChart extends Component {
 
     const projection = d3.geoMercator()
     .center([126.9895, 37.5651])
-    .scale(90000)
+    .scale(85500)
     .translate([width/2, height/2]);
    
     const path = d3.geoPath(projection);      
 
     var color = d3.scaleSequential()
-	  .domain([400000, 1800000])
-    .interpolator(d3.interpolatePurples);
+	  .domain([300000, 1800000])
+    .interpolator(d3.interpolateBuPu);
     
     d3.json("seoul_municipalities_topo_simple.json").then(data => {
       const features = topojson.feature(data, data.objects.seoul_municipalities_geo).features;

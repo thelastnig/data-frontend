@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import axios from 'axios';
 import postscribe from 'postscribe';
-// import mapScript from '../Script/map';
 
 import MapChart from './Map'
 import HeatMap from '../Graph/HeatMap';
@@ -168,6 +167,42 @@ class MainPage extends Component {
               아파트 매매가 <span>('20.3) [단위: 천원]</span> 
             </div>
             <MapChart {...this.props}/>
+            <div className='legend'>
+              <div className='legendLeft'>
+                <div className='legendItem '></div>
+                <div className='legendItem second'></div>
+                <div className='legendItem third'></div>
+                <div className='legendItem forth'></div>
+                <div className='legendItem fifth'></div>
+                <div className='legendItem sixth'></div>
+                <div className='legendItem seventh'></div>
+                <div className='legendItem eighth'></div>
+                <div className='legendItem ninth'></div>
+              </div>
+              <div className='legendMiddle'>
+                <div className='legendItem'></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'></div>
+                <div className='legendItem last'></div>
+              </div>
+              <div className='legendRight'>
+                <div className='legendItem'><div>18억</div></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'><div>14.5억</div></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'><div>11억</div></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'><div>7.5억</div></div>
+                <div className='legendItem'></div>
+                <div className='legendItem'><div>4억</div></div>
+                <div className='legendItem'></div>
+              </div>
+            </div>
           </div>
           <div className='upperRight'>
             <div className="upperRightUp">
@@ -347,6 +382,83 @@ const Container = styled.div`
       margin-right: 30px;
       border-radius: 10px;
       background: #333333;
+      position: relative;
+
+      .legend {
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 130px;
+        left: 630px;
+
+      }
+      .legendLeft {
+        width: 30px;
+
+        .legendItem {
+          width: 30px;
+          height: 41px;
+
+          background: linear-gradient(to bottom, #4d004b, #810f7c);
+          &.second {
+            background: linear-gradient(to bottom, #810f7c, #88419d);
+          }
+          &.third {
+            background: linear-gradient(to bottom, #88419d, #8c6bb1);
+          }
+          &.forth {
+            background: linear-gradient(to bottom, #8c6bb1, #8c96c6);
+          }
+          &.fifth {
+            background: linear-gradient(to bottom, #8c96c6, #9ebcda);
+          }
+          &.sixth {
+            background: linear-gradient(to bottom, #9ebcda, #bfd3e6);
+          }
+          &.seventh {
+            background: linear-gradient(to bottom, #bfd3e6, #e0ecf4);
+          }
+          &.eighth {
+            background: linear-gradient(to bottom, #e0ecf4, #f7fcfd);
+          }
+          &.ninth {
+            background: linear-gradient(to bottom, #f7fcfd, #f7fcfd);
+          }
+        }
+
+      }
+      .legendMiddle {
+        border-left: 1px solid ${oc.gray[2]};
+        margin-right: 2px;
+
+        .legendItem {
+          width: 7px;
+          height: 40px;
+        
+          border-top: 1px solid ${oc.gray[2]};
+          &.last {
+            border-bottom: 1px solid ${oc.gray[2]};
+          }
+        }
+      }
+      .legendRight {
+
+        .legendItem {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          height: 41px;
+          div {
+            font-size: 12px;
+            color: ${oc.gray[2]};
+            font-family: 'Noto Sans KR';
+            text-align: left;
+          }
+        }
+        
+      }
     }
     .upperRight {
       width: 435px;
