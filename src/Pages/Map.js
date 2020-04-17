@@ -15,6 +15,10 @@ class MapChart extends Component {
     selectArea(area);
   }
 
+  numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   drawChart = () => {    
     
     const width = 680;
@@ -32,7 +36,7 @@ class MapChart extends Component {
    
     const path = d3.geoPath(projection);      
 
-    var color = d3.scaleSequential()
+    let color = d3.scaleSequential()
 	  .domain([300000, 1800000])
     .interpolator(d3.interpolateBuPu);
     
@@ -48,29 +52,46 @@ class MapChart extends Component {
           .on("mouseover", function(d) {
 
             d3.select(this)
-            // .attr("transform", "translate(5, 0)")
+            .attr("stroke", "#495057")
+            .attr("stroke-width", "4")
             .raise()
+
+            const coord = d3.select(this)
+            .node()
+            .getBBox()
 
             map.append("text")
             .attr("id", d.properties.SIG_CD)
-            .attr("transform", "translate(" + path.centroid(d) + ")")
+            // .attr("transform", "translate(" + path.centroid(d) + ")")
+            .attr("transform", "translate(" + (path.centroid(d)[0] + 50) + ", " + (path.centroid(d)[1] - 57) + ")")
             .attr("dy", ".35em")
             .attr("class", "municipality-label")
             .text(d.properties.SIG_KOR_NM);
 
             map.append("text")
             .attr("id", d.properties.SIG_CD)
-            .attr("transform", "translate(" + path.centroid(d)[0] + ", " + (path.centroid(d)[1] + 15) + ")")
+            .attr("transform", "translate(" + (path.centroid(d)[0] + 50) + ", " + (path.centroid(d)[1] - 40) + ")")
             .attr("dy", ".35em")
             .attr("class", "municipality-label_num")
-            .text(d.properties.PRICE);
+            .text(d.properties.PRICE.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+            map.insert("rect", "text")
+            .attr("transform", "translate(" + path.centroid(d)[0] + ", " + (path.centroid(d)[1] - 75) + ")")
+            .attr("width", 100)
+            .attr("height", 50)
+            .attr("fill", "#495057")
+            .attr("stroke", "white")
+            .attr("class", "municipality-rect")
           })
           .on("mouseout",  function(d) {
+
             d3.select(this)
-            .attr("d", path)
+            .attr("stroke", "#868e96")
+            .attr("stroke-width", "1")
 
             d3.select(".municipality-label").remove();
             d3.select(".municipality-label_num").remove();
+            d3.select(".municipality-rect").remove();
           })
           .on("click", d => {
             const selected = d.properties.SIG_KOR_NM;
@@ -89,22 +110,34 @@ class MapChart extends Component {
 export default MapChart;
 
 const Map = styled.div`
+  @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
   svg .municipality {
     stroke: #868e96;
     cursor: pointer;
   }
   svg .municipality-label {
-    fill: black;
-    font-size: 12px;
-    font-weight: 600;
+    fill: white;
+    font-size: 13px;
     text-anchor: middle;
-    font-family: 'Work Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Noto Sans KR', 'Helvetica Neue', sans-serif;
+    letter-spacing: 1px;
+    animation-duration: 1s;
+    animation-name: fadeIn;
   }
   svg .municipality-label_num {
-    fill: black;
-    font-size: 12px;
-    font-weight: 600;
+    fill: white;
+    font-size: 13px;
     text-anchor: middle;
     font-family: 'Work Sans', 'Helvetica Neue', sans-serif;
+    animation-duration: 1s;
+    animation-name: fadeIn;
   }
+  svg .municipality-rect {
+    animation-duration: 1s;
+    animation-name: fadeIn;
+  }
+
 `

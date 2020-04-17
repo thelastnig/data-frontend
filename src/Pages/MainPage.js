@@ -114,6 +114,13 @@ class MainPage extends Component {
       )
 
     })
+
+    const style = {
+      'width': '110px',
+      'color': 'white',
+      'text-align': 'center'
+
+    }
     return (
       <Container isBSelected={isBSelected} isCSelected={isCSelected} isMSelected={isMSelected} >
         <div className='upperInfoText'>
@@ -128,7 +135,7 @@ class MainPage extends Component {
               <div className='upperInfoUpperText'>매매가 최고 지역 <span>('20.3)</span></div>
             </div>
             <div className='upperInfoMiddle'>서초구</div>
-            <div className='upperInfoLower'>1,770,507</div>
+            <div className='upperInfoLower'>17억 7천 만원</div>
           </div>
           <div className='upperInfoItem second'>
             <div className='upperInfoUpper'>
@@ -138,7 +145,7 @@ class MainPage extends Component {
               <div className='upperInfoUpperText second'>전세가 최고 지역 <span>('20.3)</span></div>
             </div>
             <div className='upperInfoMiddle'>서초구</div>
-            <div className='upperInfoLower'>864,651</div>
+            <div className='upperInfoLower'>8억 6천 만원</div>
           </div>
           <div className='upperInfoItem third'>
             <div className='upperInfoUpper'>
@@ -166,7 +173,11 @@ class MainPage extends Component {
             <div className='commonText'>
               아파트 매매가 <span>('20.3) [단위: 천원]</span> 
             </div>
-            <MapChart {...this.props}/>
+            <div className='tooltip'>
+              각 지역을 클릭하면 우측에 상세 정보가 표시됩니다.
+            </div>
+            <div className='triangle'></div>
+            <div className='map'><MapChart {...this.props}/></div>
             <div className='legend'>
               <div className='legendLeft'>
                 <div className='legendItem '></div>
@@ -206,7 +217,7 @@ class MainPage extends Component {
           </div>
           <div className='upperRight'>
             <div className="upperRightUp">
-              <LinearMap {...this.props}/>
+              <div className='linearContainer'><LinearMap {...this.props}/></div>
             </div>
             <div className="upperRightDown">
               <Indicator {...this.props}/>
@@ -228,18 +239,40 @@ class MainPage extends Component {
           </div>
         </div>
         <div className="middle2">
-          
+          <div className='tooltip time'>
+            기간을 설정할 수 있습니다.
+          </div>
+          <div className='triangle time'></div>
           <div className="upperInforArea">
             <div className='infoText'>
               구별 아파트 매매/전세가 <span>[단위: 천원]</span>
             </div>
-            <Select  className='selectItem' value={selectedTime} onChange={(e)=>this.props.selectTime(e.target.value)}>
+            <Select  
+              style={style} 
+              className='selectItem' 
+              value={selectedTime} 
+              onChange={(e)=>this.props.selectTime(e.target.value)}
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "left"
+                },
+                transformOrigin: {
+                  vertical: "top",
+                  horizontal: "left"
+                },
+                getContentAnchorEl: null
+              }}>
               {times}
             </Select>
           </div>
           <BarChart {...this.props}/>
         </div>
         <div className='tableContainer'>
+          <div className='tooltip type'>
+            거래 유형을 선택할 수 있습니다.
+          </div>
+          <div className='triangle type'></div>
           <div className='infoContainer'>
             <div className='infoText'>아파트 가격 도표 <span>[단위: 천원]</span></div>
             <div className='typeContainer'>
@@ -268,6 +301,11 @@ const Container = styled.div`
   width: 100%;
   padding: 30px;
 
+  @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+
   .commonText {
     height: 20px;
     font-size: 17px;
@@ -289,6 +327,58 @@ const Container = styled.div`
 
     span {
       font-size: 12px;
+    }
+  }
+
+  .tooltip {
+    width: 280px;
+    text-align: center;
+    background: black;
+    opacity: 0.8;
+    color: ${oc.gray[2]};
+    padding: 5px;
+    font-family: 'Noto Sans KR';
+    font-size: 12px;
+    border-radius: 5px;
+    position: absolute;
+    top: 65px;
+    left: 15px;
+
+    &.time {
+      width: 170px;
+      top: 23px;
+      left: 400px;
+    }
+
+    &.type {
+      width: 190px;
+      top: 23px;
+      left: 675px;
+    }
+  }
+  .triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 7.5px 0 7.5px;
+    border-color: black transparent transparent transparent;
+    opacity: 0.8;
+    position: absolute;
+    top: 93px;
+    left: 25px;
+
+    &.time {
+      border-width: 7.5px 15px 7.5px 0;
+      border-color: transparent black transparent transparent;
+      top: 29px;
+      left: 385px;
+    }
+
+    &.type {
+      border-width: 7.5px 0 7.5px 15px;
+      border-color: transparent transparent transparent black;
+      top: 29px;
+      left: 875px;
     }
   }
 
@@ -358,14 +448,15 @@ const Container = styled.div`
         color: white;
         font-family: 'Noto Sans KR';
         text-align: center;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
 
       }
       .upperInfoLower {
-        font-size: 16px;
+        font-size: 15px;
         letter-spacing: 1px;
         color: white;
         text-align: center;
+        font-family: 'Noto Sans KR';
       }
     }
   }
@@ -384,7 +475,13 @@ const Container = styled.div`
       background: #333333;
       position: relative;
 
+      .map {
+        position: relative;
+        z-index: 99;
+      }
+
       .legend {
+        z-index: 90;
         width: 100px;
         display: flex;
         justify-content: center;
@@ -392,13 +489,12 @@ const Container = styled.div`
         position: absolute;
         top: 130px;
         left: 630px;
-
       }
       .legendLeft {
-        width: 30px;
+        width: 28px;
 
         .legendItem {
-          width: 30px;
+          width: 28px;
           height: 41px;
 
           background: linear-gradient(to bottom, #4d004b, #810f7c);
@@ -457,7 +553,6 @@ const Container = styled.div`
             text-align: left;
           }
         }
-        
       }
     }
     .upperRight {
@@ -515,6 +610,7 @@ const Container = styled.div`
     margin-top: 30px;
     border-radius: 10px;
     background: #333333;
+    position: relative;
 
     .upperInforArea {
       width: 1125px;
@@ -551,6 +647,7 @@ const Container = styled.div`
     margin-top: 30px;
     border-radius: 10px;
     background: #333333;
+    position: relative;
 
     .infoContainer {
       width: 1140px;
