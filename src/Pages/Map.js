@@ -38,68 +38,63 @@ class MapChart extends Component {
     let color = d3.scaleSequential()
 	  .domain([300000, 1800000])
     .interpolator(d3.interpolateBuPu);
+
+    const features = topojson.feature(geoData, geoData.objects.seoul_municipalities_geo).features;
     
-    d3.json("./seoul_municipalities_topo_simple.json").then(error, data => {
-      if (error) throw error;
-      // data = JSON.parse(JSON.stringify(geoData));
-      data = geoData;
-      const features = topojson.feature(data, data.objects.seoul_municipalities_geo).features;
-      
-      map.selectAll("path")
-          .data(features)
-        .enter().append("path")
-          .attr("class", function(d) { console.log(); return "municipality c" + d.properties.SIG_CD })
-          .attr("d", path)
-          .attr("fill", function(d) { return color(d.properties.PRICE) })
-          .on("mouseover", function(d) {
+    map.selectAll("path")
+        .data(features)
+      .enter().append("path")
+        .attr("class", function(d) { console.log(); return "municipality c" + d.properties.SIG_CD })
+        .attr("d", path)
+        .attr("fill", function(d) { return color(d.properties.PRICE) })
+        .on("mouseover", function(d) {
 
-            d3.select(this)
-            .attr("stroke", "#495057")
-            .attr("stroke-width", "4")
-            .raise()
+          d3.select(this)
+          .attr("stroke", "#495057")
+          .attr("stroke-width", "4")
+          .raise()
 
-            const coord = d3.select(this)
-            .node()
-            .getBBox()
+          const coord = d3.select(this)
+          .node()
+          .getBBox()
 
-            map.append("text")
-            .attr("id", d.properties.SIG_CD)
-            // .attr("transform", "translate(" + path.centroid(d) + ")")
-            .attr("transform", "translate(" + (path.centroid(d)[0] + 50) + ", " + (path.centroid(d)[1] - 57) + ")")
-            .attr("dy", ".35em")
-            .attr("class", "municipality-label")
-            .text(d.properties.SIG_KOR_NM);
+          map.append("text")
+          .attr("id", d.properties.SIG_CD)
+          // .attr("transform", "translate(" + path.centroid(d) + ")")
+          .attr("transform", "translate(" + (path.centroid(d)[0] + 50) + ", " + (path.centroid(d)[1] - 57) + ")")
+          .attr("dy", ".35em")
+          .attr("class", "municipality-label")
+          .text(d.properties.SIG_KOR_NM);
 
-            map.append("text")
-            .attr("id", d.properties.SIG_CD)
-            .attr("transform", "translate(" + (path.centroid(d)[0] + 50) + ", " + (path.centroid(d)[1] - 40) + ")")
-            .attr("dy", ".35em")
-            .attr("class", "municipality-label_num")
-            .text(d.properties.PRICE.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+          map.append("text")
+          .attr("id", d.properties.SIG_CD)
+          .attr("transform", "translate(" + (path.centroid(d)[0] + 50) + ", " + (path.centroid(d)[1] - 40) + ")")
+          .attr("dy", ".35em")
+          .attr("class", "municipality-label_num")
+          .text(d.properties.PRICE.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
-            map.insert("rect", "text")
-            .attr("transform", "translate(" + path.centroid(d)[0] + ", " + (path.centroid(d)[1] - 75) + ")")
-            .attr("width", 100)
-            .attr("height", 50)
-            .attr("fill", "#495057")
-            .attr("stroke", "white")
-            .attr("class", "municipality-rect")
-          })
-          .on("mouseout",  function(d) {
+          map.insert("rect", "text")
+          .attr("transform", "translate(" + path.centroid(d)[0] + ", " + (path.centroid(d)[1] - 75) + ")")
+          .attr("width", 100)
+          .attr("height", 50)
+          .attr("fill", "#495057")
+          .attr("stroke", "white")
+          .attr("class", "municipality-rect")
+        })
+        .on("mouseout",  function(d) {
 
-            d3.select(this)
-            .attr("stroke", "#868e96")
-            .attr("stroke-width", "1")
+          d3.select(this)
+          .attr("stroke", "#868e96")
+          .attr("stroke-width", "1")
 
-            d3.select(".municipality-label").remove();
-            d3.select(".municipality-label_num").remove();
-            d3.select(".municipality-rect").remove();
-          })
-          .on("click", d => {
-            const selected = d.properties.SIG_KOR_NM;
-            this.select(selected);
-          }) 
-    });
+          d3.select(".municipality-label").remove();
+          d3.select(".municipality-label_num").remove();
+          d3.select(".municipality-rect").remove();
+        })
+        .on("click", d => {
+          const selected = d.properties.SIG_KOR_NM;
+          this.select(selected);
+        }) 
   }
 
   render() {
