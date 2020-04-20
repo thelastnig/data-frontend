@@ -23,7 +23,6 @@ class MainContainer extends Component {
   }
 
   selectType = (type) => {
-    console.log(type)
     this.setState({
       selectedType: type
     })

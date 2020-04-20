@@ -17,19 +17,22 @@ import data from '../data/realEstate';
 import dataC from '../data/realEstateCharter';
 import dataM from '../data/realEstateMonth';
 import timeSpan from '../data/timeSpan';
-
 import iconTest from '../image/home.png';
+
+import Loader from 'react-loader-spinner';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class MainPage extends Component {
   
   state = {
-    timeSpanReverse: [],
+    loading: true,
+    selectedType: this.props.selectedType,
   }
 
   componentDidMount() {
     this.setState({
-      selectedType: this.props.selectedType,
-    })
+      loading: false
+    });
   }
   
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -62,7 +65,6 @@ class MainPage extends Component {
   render(){
     const { selectedTime } = this.props;
     const { selectedType } = this.state;
-
     const times = timeSpan.date.map((value, i) => {
       return (
         <MenuItem className='menuItem' value={value} key={i}>{value}</MenuItem>
@@ -118,13 +120,19 @@ class MainPage extends Component {
     const style = {
       'width': '110px',
       'color': 'white',
-      'text-align': 'center'
+      'textAlign': 'center'
 
     }
     return (
+      
       <Container isBSelected={isBSelected} isCSelected={isCSelected} isMSelected={isMSelected} >
         <div className='upperInfoText'>
-          서울 지역 아파트 가격 동향
+          <div className='upperInfoTextLeft'>
+            서울 지역 아파트 가격 동향
+          </div>
+          <div className='upperInfoTextRight'>
+            출처 : 한국감정원 부동산 통계 뷰어(http://www.kab.co.kr)
+          </div>
         </div>
         <div className='upperInfoItemContainer'>
           <div className='upperInfoItem'>
@@ -165,7 +173,7 @@ class MainPage extends Component {
               <div className='upperInfoUpperText forth'>전세가 최고 상승 지역 <span>('19.4~'20.3)</span></div>
             </div>
             <div className='upperInfoMiddle'>종로구</div>
-            <div className='upperInfoLower'>45%</div>
+            <div className='upperInfoLower'>21.8%</div>
           </div>
         </div>
         <div className='upper'>
@@ -289,7 +297,7 @@ class MainPage extends Component {
             {valueArray}
           </div>
         </div>
-        <Mesh/>
+        {/* <Mesh/> */}
       </Container>
     )
   }
@@ -300,6 +308,7 @@ export default MainPage
 const Container = styled.div`
   width: 100%;
   padding: 30px;
+  padding-bottom: 100px;
 
   @keyframes fadeIn {
     0% {opacity: 0;}
@@ -383,13 +392,29 @@ const Container = styled.div`
   }
 
   .upperInfoText {
-    font-size: 22px;
-    letter-spacing: 2px;
-    color: white;
-    font-family: 'Noto Sans KR';
-
+    width: 1185px;
     margin-bottom: 50px;
     margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    .upperInfoTextLeft {
+      width: 400px;
+      font-size: 22px;
+      margin-right: 305px;
+      letter-spacing: 2px;
+      color: white;
+      font-family: 'Noto Sans KR';
+
+    }
+    .upperInfoTextRight {
+      width: 480px;
+      font-size: 14px;
+      color: white;
+      font-family: 'Noto Sans KR';
+      text-align: right;
+    }
   }
 
   .upperInfoItemContainer {

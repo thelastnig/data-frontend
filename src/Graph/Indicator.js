@@ -53,23 +53,46 @@ class Indicator extends Component {
     if (nextProps.selectedArea !== prevState.selectedArea) {
       const selectedData = data[nextProps.selectedArea];
       const rate = (selectedData[selectedData.length - 1] - selectedData[0]) / selectedData[0] * 100;
-      return {
-        selectedArea: nextProps.selectedArea,
-        data: [
-          {
-            domain: { x: [0, 1], y: [0, 1] },
-            value: rate,
-            type: "indicator",
-            mode: "gauge+number",
-            gauge: {
-              axis: { range: [null, 50] },
-              bar: { color: "#3b5bdb" },
-              bgcolor: "#333333",
-              borderwidth: 2,
-              bordercolor: "#868e96",
+
+      if (rate > 0) {
+        return {
+          selectedArea: nextProps.selectedArea,
+          data: [
+            {
+              domain: { x: [0, 1], y: [0, 1] },
+              value: rate,
+              type: "indicator",
+              mode: "gauge+number",
+              gauge: {
+                axis: { range: [null, 50] },
+                bar: { color: "#3b5bdb" },
+                bgcolor: "#333333",
+                borderwidth: 2,
+                bordercolor: "#868e96",
+              }
             }
-          }
-        ]
+          ]
+        }
+      } else {
+        return {
+          selectedArea: nextProps.selectedArea,
+          data: [
+            {
+              domain: { x: [0, 1], y: [0, 1] },
+              value: rate,
+              type: "indicator",
+              mode: "gauge+number",
+              gauge: {
+                axis: { range: [0, -50] },
+                bar: { color: "#c2255c" },
+                bgcolor: "#333333",
+                borderwidth: 2,
+                bordercolor: "#868e96",
+              }
+            }
+          ]
+        }
+
       }
     }
     return null
@@ -80,7 +103,7 @@ class Indicator extends Component {
     return(
       <Container>
         <div className='infoText'>
-          {selectedArea} 매매/전세가 상승률 <span>[단위: %]</span>
+          {selectedArea} 매매가 상승률 <span>('19.4~'20.3) [단위: %]</span>
         </div>
         <Plot
           data={data} 

@@ -46,6 +46,12 @@ class HeatMap extends Component {
     })
     this.setState({
       data: {
+        showscale: true,
+        colorbar: {
+          tickfont: {
+            color: 'dee2e6'
+          }
+        },
         x: timeSpan.date,
         y: Object.keys(data),
         z: zArray,

@@ -52,6 +52,12 @@ class Cluster extends Component {
             tickfont: {
               color: '#dee2e6'
             },
+            title: '매매가 상승률',
+            titlefont: {
+              family: 'Noto Sans KR',
+              size: 14,
+              color: '#dee2e6'
+            },
           },
           yaxis: {
             type: 'linear',
@@ -61,6 +67,12 @@ class Cluster extends Component {
             tickfont: {
               color: '#dee2e6'
             },
+            title: '전세가 상승률',
+            titlefont: {
+              family: 'Noto Sans KR',
+              size: 14,
+              color: '#dee2e6'
+            },
           },
           zaxis: {
             type: 'linear',
@@ -68,6 +80,12 @@ class Cluster extends Component {
             gridcolor: '#74b816',
             gridwidth: 1.5,
             tickfont: {
+              color: '#dee2e6'
+            },
+            title: '월세가 상승률',
+            titlefont: {
+              family: 'Noto Sans KR',
+              size: 14,
               color: '#dee2e6'
             },
           }
@@ -103,17 +121,22 @@ class Cluster extends Component {
 
   componentDidMount() {
 
+    const names = Object.keys(data);
+
     let xArray = [];
     Object.values(data).map((prices, i) => {
-      xArray.push((prices[prices.length - 1] - prices[0]) / prices[0] * 100);
+      const temp = (prices[prices.length - 1] - prices[0]) / prices[0] * 100;
+      xArray.push(Math.round(temp));
     })
     let yArray = [];
     Object.values(dataC).map((prices, i) => {
-      yArray.push((prices[prices.length - 1] - prices[0]) / prices[0] * 100);
+      const temp = (prices[prices.length - 1] - prices[0]) / prices[0] * 100;
+      yArray.push(Math.round(temp));
     })
     let zArray = [];
     Object.values(dataM).map((prices, i) => {
-      zArray.push((prices[prices.length - 1] - prices[0]) / prices[0] * 100);
+      const temp = (prices[prices.length - 1] - prices[0]) / prices[0] * 100;
+      zArray.push(Math.round(temp));
     })
 
     // const xMean = this.getMean(xArray);

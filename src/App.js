@@ -11,15 +11,48 @@ import iconLogo from './image/cube.png'
 import iconMain from './image/report.png'
 import iconText from './image/document.png'
 import iconAdd from './image/dashboard.png'
+import upload from './image/upload.png'
 
 class App extends Component {
+  state = {
+    isDash: true,
+    isText: false,
+  }
+
+  onClick = (type) => {
+    if (type === 'dash') {
+      this.setState({
+        isDash: true,
+        isText: false,
+      })
+    } else {
+      this.setState({
+        isDash: false,
+        isText: true,
+      })
+    }
+  }
+
+  upload = () => {
+    window.scrollTo(0, 0);
+  }
 
   render() {
+    const { isDash, isText } = this.state;
     return (
       <BrowserRouter>
         <Container>
-          <ContentContainer>
+          <ContentContainer isDash={isDash} isText={isText}>
             <div className='leftContent'>
+              <div className='fixed'>
+                <div className='upload'>
+                  <div className='tooltip'>
+                    맨 위로
+                  </div>
+                  <div className='triangle'></div>
+                  <img className='upImg' src={upload} alt={upload} height="50px" onClick={this.upload}/>
+                </div>
+              </div>
               <div className='upperInfo'>
                 <div className='upperInfoIcon'>
                   <img src={iconLogo} alt={iconLogo} height="30px"/>
@@ -32,7 +65,7 @@ class App extends Component {
                     <div className='lowerMenuIcon'>
                       <img src={iconMain} alt={iconMain} height="20px"/>
                     </div>
-                    <div className='lowerMenuText'>Dashboard</div>
+                    <div className='lowerMenuText' onClick={()=>this.onClick('dash')}>Dashboard</div>
                   </div>
                 </Link>
                 <Link className='defaultLink' to='/text'>
@@ -40,15 +73,7 @@ class App extends Component {
                     <div className='lowerMenuIcon'>
                       <img src={iconText} alt={iconText} height="20px"/>
                     </div>
-                    <div className='lowerMenuText'>Text Mining</div>
-                  </div>
-                </Link>
-                <Link className='defaultLink' to='/etc'>
-                  <div className='linkMenu'>
-                    <div className='lowerMenuIcon'>
-                      <img src={iconAdd} alt={iconAdd} height="20px"/>
-                    </div>
-                    <div className='lowerMenuText'>Miscellaneous</div>
+                    <div className='lowerMenuTextText' onClick={()=>this.onClick('text')}>Text Mining</div>
                   </div>
                 </Link>
               </div>
@@ -84,7 +109,7 @@ const ContentContainer = styled.div`
 
   display: flex;
   justify-conten: center;
-  align-items: flex-start;
+  align-items: stretch;
 
   .leftContent {
     width: 255px;
@@ -96,6 +121,54 @@ const ContentContainer = styled.div`
     .defaultLink {
       color: black;
       text-decoration:none;
+    }
+
+    .fixed {
+      width: 100px;
+      height: 100px;
+      background: white;
+      position: fixed;
+      left: 100px;
+      bottom: 30px;
+      text-align: center;
+      background: transparent;
+
+      .upload {
+        width: 100%;
+        position: relative;
+        text-align: center;
+        background: transparent;
+        
+        .upImg {
+          cursor: pointer;
+        }
+
+        .tooltip {
+          width: 60px;
+          text-align: center;
+          background: black;
+          opacity: 0.8;
+          color: ${oc.gray[2]};
+          padding: 5px;
+          font-family: 'Noto Sans KR';
+          font-size: 12px;
+          border-radius: 5px;
+          position: absolute;
+          top: -50px;
+          left: 14px;
+        }
+        .triangle {
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 15px 7.5px 0 7.5px;
+          border-color: black transparent transparent transparent;
+          opacity: 0.8;
+          position: absolute;
+          top: -22px;
+          left: 43px;
+        }
+      }
     }
   }
 
@@ -150,9 +223,36 @@ const ContentContainer = styled.div`
       .lowerMenuText {
         width: 100px;
         margin-left: 10px;
+        color: white;
+
+        ${props => props.isDash && `
+          color: ${oc.grape[7]};
+        `}
+
+        ${props => !props.isDash && `
+          color: white;
+        `}
 
         &:hover {
-          color: ${oc.grape[7]}
+          color: ${oc.pink[7]};
+        }
+      }
+
+      .lowerMenuTextText {
+        width: 100px;
+        margin-left: 10px;
+        color: white;
+
+        ${props => props.isText && `
+          color: ${oc.grape[7]};
+        `}
+
+        ${props => !props.isText && `
+          color: white;
+        `}
+
+        &:hover {
+          color: ${oc.pink[7]};
         }
       }
     }

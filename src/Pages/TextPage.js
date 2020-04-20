@@ -16,11 +16,16 @@ class TextPage extends Component {
     return (
       <Container>
       <div className='upperInfoText'>
-        서울 지역 아파트 가격 동향
+        <div className='upperInfoTextLeft'>
+          텍스트 마이닝
+        </div>
+        <div className='upperInfoTextRight'>
+          소스 : 오즈의 마법사(The Wizard of Oz) 영어 원본
+        </div>
       </div>
       <div className='upperContainer'>
         <div className='commonText'>
-          아파트 매매가 <span>('20.3) [단위: 천원]</span> 
+          등장인물 관계도
         </div>
         <div id='network' className='network'>
           <img src={network} alt={network} height="600px" />
@@ -28,7 +33,7 @@ class TextPage extends Component {
       </div>
       <div className='middleContainer'>
         <div className='commonText'>
-          아파트 매매가 <span>('20.3) [단위: 천원]</span> 
+          등장인물 동시출현 빈도
         </div>
         <div id='cast' className='cast'>
           <img src={cast} alt={cast} height="600px" />
@@ -36,7 +41,7 @@ class TextPage extends Component {
       </div>
       <div className='lowerContainer'>
         <div className='commonText'>
-          아파트 매매가 <span>('20.3) [단위: 천원]</span> 
+          챕터별 등장인물 출현 빈도
         </div>
         <div id='chapter' className='chapter'>
           <img src={chapter} alt={cast} height="600px" />
@@ -52,6 +57,7 @@ export default TextPage
 const Container = styled.div`
   width: 100%;
   padding: 30px;
+  padding-bottom: 100px;
 
   .commonText {
     height: 20px;
@@ -69,13 +75,29 @@ const Container = styled.div`
   }
 
   .upperInfoText {
-    font-size: 22px;
-    letter-spacing: 2px;
-    color: white;
-    font-family: 'Noto Sans KR';
-
+    width: 1185px;
     margin-bottom: 50px;
     margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    .upperInfoTextLeft {
+      width: 400px;
+      font-size: 22px;
+      margin-right: 305px;
+      letter-spacing: 2px;
+      color: white;
+      font-family: 'Noto Sans KR';
+
+    }
+    .upperInfoTextRight {
+      width: 480px;
+      font-size: 14px;
+      color: white;
+      font-family: 'Noto Sans KR';
+      text-align: right;
+    }
   }
 
   .upperContainer {

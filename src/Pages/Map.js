@@ -5,8 +5,6 @@ import * as topojson from 'topojson-client';
 
 class MapChart extends Component {
   componentDidMount() {
-    
-    console.log(this.props.selectedArea)
     this.drawChart();
   }
 
