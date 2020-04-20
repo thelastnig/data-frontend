@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import * as d3 from "d3";
 import styled from "styled-components";
 import * as topojson from 'topojson-client';
+import geoData from './seoul_municipalities_topo_simple.json';
 
 class MapChart extends Component {
   componentDidMount() {
@@ -38,7 +39,10 @@ class MapChart extends Component {
 	  .domain([300000, 1800000])
     .interpolator(d3.interpolateBuPu);
     
-    d3.json("./seoul_municipalities_topo_simple.json").then(data => {
+    d3.json("./seoul_municipalities_topo_simple.json").then(error, data => {
+      if (error) throw error;
+      // data = JSON.parse(JSON.stringify(geoData));
+      data = geoData;
       const features = topojson.feature(data, data.objects.seoul_municipalities_geo).features;
       
       map.selectAll("path")
