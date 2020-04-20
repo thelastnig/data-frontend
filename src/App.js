@@ -60,20 +60,20 @@ class App extends Component {
                 <div className='upperInfoText'><span>Park</span> Jongwon</div>
               </div>
               <div className='lowerMenu'>
-                <Link className='defaultLink' to='/'>
+                <Link className='defaultLink' to='/data-frontend'>
                   <div className='linkMenu'>
-                    <div className='lowerMenuIcon'>
+                    <div className='lowerMenuIcon' onClick={()=>this.onClick('dash')}>
                       <img src={iconMain} alt={iconMain} height="20px"/>
                     </div>
-                    <div className='lowerMenuText' onClick={()=>this.onClick('dash')}>Dashboard</div>
+                    <div className='lowerMenuText'>Dashboard</div>
                   </div>
                 </Link>
                 <Link className='defaultLink' to='/text'>
                   <div className='linkMenu'>
-                    <div className='lowerMenuIcon'>
+                    <div className='lowerMenuIcon' onClick={()=>this.onClick('text')}>
                       <img src={iconText} alt={iconText} height="20px"/>
                     </div>
-                    <div className='lowerMenuTextText' onClick={()=>this.onClick('text')}>Text Mining</div>
+                    <div className='lowerMenuTextText'>Text Mining</div>
                   </div>
                 </Link>
               </div>
@@ -81,7 +81,7 @@ class App extends Component {
             <div className='rightContent'>
               <div className="Wrapper">
                 <Switch>
-                  <Route exact path="/" component={MainContainer} />
+                  <Route exact path="/data-frontend" component={MainContainer} />
                   <Route path="/text" component={TextContainer} />
                   <Route path="/etc" component={AdditionalContainer} />
                 </Switch>
@@ -128,7 +128,7 @@ const ContentContainer = styled.div`
       height: 100px;
       background: white;
       position: fixed;
-      left: 100px;
+      left: 50px;
       bottom: 30px;
       text-align: center;
       background: transparent;
