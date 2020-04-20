@@ -40,7 +40,7 @@ class App extends Component {
   render() {
     const { isDash, isText } = this.state;
     return (
-      <BrowserRouter>
+      <BrowserRouter basename='/data-frontend'>
         <Container>
           <ContentContainer isDash={isDash} isText={isText}>
             <div className='leftContent'>
@@ -60,17 +60,17 @@ class App extends Component {
                 <div className='upperInfoText'><span>Park</span> Jongwon</div>
               </div>
               <div className='lowerMenu'>
-                <Link className='defaultLink' to='/data-frontend'>
+                <Link className='defaultLink' to='/' onClick={()=>this.onClick('dash')}>
                   <div className='linkMenu'>
-                    <div className='lowerMenuIcon' onClick={()=>this.onClick('dash')}>
+                    <div className='lowerMenuIcon'>
                       <img src={iconMain} alt={iconMain} height="20px"/>
                     </div>
-                    <div className='lowerMenuText'>Dashboard</div>
+                    <div className='lowerMenuText' >Dashboard</div>
                   </div>
                 </Link>
-                <Link className='defaultLink' to='/text'>
+                <Link className='defaultLink' to='/text' onClick={()=>this.onClick('text')}>
                   <div className='linkMenu'>
-                    <div className='lowerMenuIcon' onClick={()=>this.onClick('text')}>
+                    <div className='lowerMenuIcon'>
                       <img src={iconText} alt={iconText} height="20px"/>
                     </div>
                     <div className='lowerMenuTextText'>Text Mining</div>
@@ -81,7 +81,7 @@ class App extends Component {
             <div className='rightContent'>
               <div className="Wrapper">
                 <Switch>
-                  <Route exact path="/data-frontend" component={MainContainer} />
+                  <Route exact path="/" component={MainContainer} />
                   <Route path="/text" component={TextContainer} />
                   <Route path="/etc" component={AdditionalContainer} />
                 </Switch>
@@ -128,7 +128,7 @@ const ContentContainer = styled.div`
       height: 100px;
       background: white;
       position: fixed;
-      left: 50px;
+      left: 30px;
       bottom: 30px;
       text-align: center;
       background: transparent;
