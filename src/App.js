@@ -97,7 +97,7 @@ class App extends Component {
 export default App;
 
 const Container = styled.div`
-  width: 100%;
+  min-width: 1800px;
   padding: 30px 0;
   background-color: ${oc.gray[8]};
 `;
