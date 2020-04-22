@@ -98,6 +98,8 @@ export default App;
 
 const Container = styled.div`
   min-width: 1800px;
+  display: inline-block;
+  margin: 0 auto;
   padding: 30px 0;
   background-color: ${oc.gray[8]};
 `;
