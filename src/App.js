@@ -41,6 +41,7 @@ class App extends Component {
     const { isDash, isText } = this.state;
     return (
       <BrowserRouter basename='/data-frontend'>
+        <OuterContainer>
         <Container>
           <ContentContainer isDash={isDash} isText={isText}>
             <div className='leftContent'>
@@ -89,6 +90,7 @@ class App extends Component {
             </div>
           </ContentContainer>
         </Container>
+        </OuterContainer>
       </BrowserRouter>
     );
   }
@@ -96,8 +98,12 @@ class App extends Component {
 
 export default App;
 
-const Container = styled.div`
+const OuterContainer = styled.div`
   width: 100%;
+  background-color: ${oc.gray[8]};
+`
+
+const Container = styled.div`
   min-width: 1800px;
   display: inline-block;
   margin: 0 auto;
