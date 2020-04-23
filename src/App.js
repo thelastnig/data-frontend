@@ -97,6 +97,7 @@ class App extends Component {
 export default App;
 
 const Container = styled.div`
+  width: 100%;
   min-width: 1800px;
   display: inline-block;
   margin: 0 auto;
